@@ -4,6 +4,11 @@
     {{- if gt $index 0 }}
       <span class="separator">•</span>
     {{- end }}
-    <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    {{- $cat := site.GetPage (printf "/categories/%s" $el | urlize) }}
+    {{- if $cat }}
+      <a href="{{ $cat.RelPermalink }}">{{ $cat.LinkTitle }}</a>
+    {{- else }}
+      {{ $el }}  <!-- fallback in case the category page isn't found -->
+    {{- end }}
   {{- end -}}
 </div>

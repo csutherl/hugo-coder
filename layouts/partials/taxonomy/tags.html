@@ -4,8 +4,13 @@
     {{- if gt $index 0 }}
       <span class="separator">•</span>
     {{- end }}
-    <span class="tag">
-      <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-    </span>
+    {{- $tag := site.GetPage (printf "/tags/%s" $el | urlize) }}
+    {{- if $tag }}
+      <span class="tag">
+        <a href="{{ $tag.RelPermalink }}">{{ $tag.LinkTitle }}</a>
+      </span>
+    {{- else }}
+      <span class="tag">{{ $el }}</span>  <!-- fallback text if lookup fails -->
+    {{- end }}
   {{- end -}}
 </div>
